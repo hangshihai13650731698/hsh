@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        <input v-model="name" />
+        <button @click="sendData">sendData</button>
+        <p>{{name}}</p>
+    </div>
+    <hr />
+    <div id="demo2">
+        <p>{{name}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // 事件总线
+        // 实例化一台车
+        var bus = new Vue();
+        // bus.$on
+        // bus.$emit
+
+        new Vue({
+            el: "#demo",
+            data: {
+                name: 'yao'
+            },
+            methods: {
+                sendData() {
+                    bus.$emit('sendData', this.name)
+                }
+            },
+        })
+
+        new Vue({
+            el: "#demo2",
+            data: {
+                name: 'jing'
+            },
+            created() {
+                bus.$on('sendData', (data) => {
+                    this.name = data
+                    console.log(data)
+                })
+            },
+        })
+    </script>
+</body>
+
+</html>
