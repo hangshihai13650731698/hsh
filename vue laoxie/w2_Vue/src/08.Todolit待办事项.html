@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08.Todolit待办事项</title>
+    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.css">
+    <script src="./assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>08.Todolit待办事项</h1>
+    <div id="app" class="container-fluid">
+        <div class="input-group">
+            <input type="text" class="form-control" ref="keyword" v-model="keyword" @keyup.13="addItem">
+            <div class="input-group-addon" style="padding:2px;">
+                <input type="date" v-model="date"/>
+            </div>
+            <span class="input-group-btn">
+                <!-- 按钮 -->
+                <button class="btn btn-success" type="button" @click="addItem">添加</button>
+            </span>
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" v-model="checkAll"/>全选</th>
+                    <th>#</th>
+                    <th>待办事项</th>
+                    <th>预计完成事件</th>
+                    <th>是否完成</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,idx) in datalist" @click="selectItem(idx)">
+                    <td><input type="checkbox" v-model="item.selected" /></td>
+                    <td>{{idx+1}}</td>
+                    <td>{{item.content}}</td>
+                    <td>{{item.date}}</td>
+                    <td>{{item.done ? '是':'否'}}</td>
+                    <td>
+                        <!-- 删除按钮 -->
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-default" type="submit" @click.stop.once="completeItem(idx)">完成</button>
+                            <button class="btn btn-danger" type="submit" @click.stop="removeItem(idx)">删除</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        /**
+         * 08.Todolit待办事项
+            * 增
+            * 删
+            * 改
+            * 查
+
+            computed：就是getter&setter
+            事件处理函数
+                * event 默认事件处理函数的第一个参数为event
+                * 如果手动往事件处理函数传参，默认没有event
+                * 事件触发时，event对象会存入vm实例的属性vm.$event
+                * 事件修饰符
+                * event.target          事件源对象
+                * event.currentTarget   绑定事件的元素
+         */
+
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                // checkAll:false,
+                keyword:'',
+                date:'',
+                datalist: [{
+                    id: 1,
+                    content: '先定个小目标，赚他5个亿',
+                    done: false,
+                    date: '2019-12-25',
+                    selected:false
+                }]
+            },
+            computed:{
+                // computed中的属性为存储器属性，在computed中this指向vm实例
+                // checkAll:function(){
+                //     // getter
+                //     return false
+                // }
+                checkAll:{
+                    get(){
+                        // 被动：所有数据的值修改影响checkAll
+                        // res = true;
+                        // this.datalist.forEach(item=>{
+                        //     if(!item.selected)
+                        //     res = false;
+                        // })
+                        // return res;
+
+                        return this.datalist.every(item=>item.selected);
+                    },
+                    set(val){
+                        // 主动修改：checkAll的值影响所有数据的值
+                        this.datalist.forEach(item=>item.selected=val);
+                    }
+                }
+            },
+            methods:{
+                addItem(){
+                    let data = {
+                        id:this.datalist.length+1,
+                        content:this.keyword,
+                        done:false,
+                        date:this.date,
+                        selected:false
+                    }
+                    this.datalist.unshift(data)
+
+                    this.keyword = '';
+
+                    // 通过this.$refs.keyword获取到节点
+                    this.$refs.keyword.focus();
+                },
+                removeItem(idx,e){console.log(idx,e)
+                    this.datalist.splice(idx,1);
+                    // e.stopPropagation()
+                },
+                completeItem(idx,e){console.log('complete')
+                    this.datalist.forEach((item,i)=>{
+                        if(i === idx){
+                            item.done = true;
+                        }
+                    });
+                    // e.stopPropagation()
+                },
+
+                // 选中或取消数据勾选
+                selectItem(idx){
+                    this.datalist.forEach((item,i)=>{
+                        if(i===idx)
+                        item.selected = !item.selected;
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
