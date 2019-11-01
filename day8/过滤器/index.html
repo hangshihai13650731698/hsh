@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        <p>{{name|uppercase}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // 跟计算属性很相似
+        // 把数据从一个状态，变为另外一个状态
+        new Vue({
+            el: "#demo",
+            data() {
+                return {
+                    name: 'yao'
+                }
+            },
+            // 定义过滤器
+            filters: {
+                uppercase(input) {
+                    return input.charAt(0).toUpperCase() + input.slice(1)
+                    // return input.toUpperCase()
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

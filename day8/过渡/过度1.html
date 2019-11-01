@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* enter->enter-to->leave->leave-to */
+
+        .abc-enter-active,
+        .abc-leave-active {
+            transition: opacity 5s;
+        }
+        
+        .abc-enter,
+        .abc-leave-to
+        /* .abc-leave-active below version 2.1.8 */
+            {
+            opacity: 0;
+        }
+        .abc-enter-to,
+        .abc-leave
+        /* .fade-leave-active below version 2.1.8 */
+            {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="demo">
+        <button @click="toggle">切换</button>
+        <transition name="abc">
+            <p v-show="bool">显示或者隐藏</p>
+        </transition>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // $().show()
+        // $().animate()
+        new Vue({
+            el: "#demo",
+            data() {
+                return {
+                    bool: true
+                }
+            },
+            methods: {
+                toggle() {
+                    this.bool = !this.bool
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
