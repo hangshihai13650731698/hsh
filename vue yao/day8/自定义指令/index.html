@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        <p v-color="color">456</p>
+        <p v-color="'blue'">123</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // 跟计算属性很相似
+        // 把数据从一个状态，变为另外一个状态
+        new Vue({
+            el: "#demo",
+            data() {
+                return {
+                    color: 'red'
+                }
+            },
+            // 自定义指令
+            directives: {
+                color: {
+                    // 指令的定义
+                    inserted: function (el,binding) {
+                        console.log(el,binding)
+                        el.style.color = binding.value
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

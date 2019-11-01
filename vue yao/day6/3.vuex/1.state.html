@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo"></div>
+    <script src="vue.js"></script>
+    <script src="vuex.js"></script>
+    <script>
+        console.log(window)
+        const store = new Vuex.Store({
+            state: {
+                count: 0
+            }
+        })
+        Vue.component('component1', {
+            template: `
+                <div>
+                    组件1
+                    <p>{{count}}</p>
+                    <button @click="plus">ok</button>
+                </div>
+            `,
+            methods: {
+                plus() {
+                    console.log(this.$store.state.count)
+                    this.$store.state.count += 1
+                }
+            },
+            computed: {
+                count() {
+                    return this.$store.state.count
+                }
+            }
+        })
+        Vue.component('component2', {
+            template: `
+                <div>
+                    组件2
+                    <p>{{count}}</p>
+                </div>
+            `,
+            computed: {
+                count() {
+                    return this.$store.state.count
+                }
+            }
+        })
+        const vm = new Vue({
+            el: "#demo",
+            store,
+            template: `
+                <div>
+                    <component1/>
+                    <hr/>
+                    <component2/>
+                </div>
+            `
+        })
+        console.log(vm.$store)
+    </script>
+</body>
+
+</html>

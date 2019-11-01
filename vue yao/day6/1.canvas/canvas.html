@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 画布 -->
+    <!-- GPU -->
+    <canvas width="1000" height="1000"></canvas>
+    <script>
+        // 选中画布
+        const canvas = document.querySelector('canvas')
+        // 绘制二维图形 
+        const ctx = canvas.getContext('2d')
+        ctx.fillStyle = "#0000ff"
+        // 在x和y轴为o的地方，画一个正方形
+        // ctx.rect(0, 0, 200, 200)
+        // ctx.stroke()
+        ctx.beginPath();
+        ctx.moveTo(0, 500);
+        let x = 0
+        setInterval(() => {
+            x += 10;
+            let y = parseInt(Math.random()*100)
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }, 1000)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo" style="height: 2000px;">
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        Vue.component('Header', Vue.extend({
+            data() {
+                return {
+                    name: 'yao'
+                }
+            },
+            template: `
+                <div>组件1</div>
+            `,
+            mounted() {
+                // a is not undefined 错误
+                console.log(a)
+            }
+        }))
+        var vm = new Vue({
+            // 选项
+            el: '#demo',
+            data: {
+                name: 'yao',
+                timer: null
+            },
+            template: `
+                <div>
+                    <Header/>
+                </div>
+            
+            `,
+            // 全局捕捉错误
+            errorCaptured(err) {
+                console.log(err)
+            }
+        })
+    </script>
+</body>
+
+</html>

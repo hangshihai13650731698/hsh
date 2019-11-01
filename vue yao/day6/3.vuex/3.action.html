@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo"></div>
+    <script src="vue.js"></script>
+    <script src="vuex.js"></script>
+    <script>
+        const store = new Vuex.Store({
+            state: {
+                count: 0
+            },
+            mutations: {
+                // 封装了更改count的方法
+                setCount(state, newValue) {
+                    state.count = newValue
+                }
+            },
+            actions: {
+                // action触发commit触发mutations真正去更改state的值
+                setCount(context, newValue) {
+                    context.commit('setCount', newValue)
+                }
+            }
+        })
+        Vue.component('component1', {
+            template: `
+                <div>
+                    组件1
+                    <p>{{count}}</p>
+                    <button @click="plus">ok</button>
+                </div>
+            `,
+            methods: {
+                plus() {
+                    console.log(this.$store.state.count)
+                    // 1.直接更改仓库的(不规范)
+                    // this.$store.state.count += 1
+                    // 2.触发mutation
+                    // this.$store.commit('setCount', 9)
+                    // 3.触发action
+                    this.$store.dispatch('setCount', 9)
+                }
+            },
+            computed: {
+                count() {
+                    return this.$store.state.count
+                }
+            }
+        })
+        Vue.component('component2', {
+            template: `
+                <div>
+                    组件2
+                    <p>{{count}}</p>
+                </div>
+            `,
+            computed: {
+                count() {
+                    return this.$store.state.count
+                }
+            }
+        })
+        const vm = new Vue({
+            el: "#demo",
+            store,
+            template: `
+                <div>
+                    <component1/>
+                    <hr/>
+                    <component2/>
+                </div>
+            `
+        })
+        console.log(vm.$store)
+    </script>
+</body>
+
+</html>

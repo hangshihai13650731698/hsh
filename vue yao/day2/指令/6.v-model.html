@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo"></div>
+    <script src="./vue.js"></script>
+    <script>
+        // 从视图层把数据带回数据层
+        // @input特殊的 V-M的一个方式
+        new Vue({
+            el: '#demo',
+            data: {
+                bool: !0,
+                value: 'yao',
+                arr: ['yao','jing','lin']
+            },
+            template: `
+                <div>
+                    <input v-model="value" />
+                    <select v-model="value">
+                        <option v-for="a in arr">{{a}}</option>
+                    </select>
+                    <textarea v-model="value"></textarea>
+                </div>
+            `,
+
+        })
+    </script>
+</body>
+
+</html>

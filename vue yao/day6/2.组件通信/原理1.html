@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo1">
+        <input v-model="name" />
+    </div>
+    <hr />
+    <div id="demo2">
+        <p>{{name}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // 共享的数据源
+        // 存放状态的仓库
+        // 利用这个原理实现两组件的数据通信
+        const sourceOfTruth = {
+            name: 'yao'
+        }
+        const vmA = new Vue({
+            el: "#demo1",
+            data: sourceOfTruth
+        })
+        const vmB = new Vue({
+            el: "#demo2",
+            data: sourceOfTruth
+        })
+    </script>
+</body>
+
+</html>

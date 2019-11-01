@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo1">
+        <p>{{state.name}}</p>
+        <button @click="setName('jing')">改变的值</button>
+    </div>
+    <hr />
+    <div id="demo2">
+        <p>{{state.name}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // 共享的数据源
+        // 存放状态的仓库
+        // 利用这个原理实现两组件的数据通信
+        const store = {
+            // 状态值
+            state: {
+                name: 'yao'
+            },
+            setState(newValue) {
+                // 调式
+                this.state.name = newValue
+            }
+        }
+        const vmA = new Vue({
+            el: "#demo1",
+            data: {
+                state: store.state
+            },
+            methods: {
+                setName(name) {
+                    console.log(name)
+                    store.setState(name)
+                }
+            }
+        })
+        const vmB = new Vue({
+            el: "#demo2",
+            data: {
+                state: store.state
+            }
+        })
+    </script>
+</body>
+
+</html>

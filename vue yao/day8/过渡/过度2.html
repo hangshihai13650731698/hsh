@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .bounce-enter-active {
+            animation: bounce-in 5s;
+        }
+
+        .bounce-leave-active {
+            animation: bounce-in 5s reverse;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="demo">
+        <button @click="toggle">切换</button>
+        <transition name="bounce">
+            <p v-show="bool">显示或者隐藏</p>
+        </transition>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // $().show()
+        // $().animate()
+        new Vue({
+            el: "#demo",
+            data() {
+                return {
+                    bool: true
+                }
+            },
+            methods: {
+                toggle() {
+                    this.bool = !this.bool
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

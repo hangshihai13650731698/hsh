@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .blue {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="demo"></div>
+    <script src="./vue.js"></script>
+    <script>
+        // v-if的用出就是接受一个布尔值，如果为真，增加，否则删除
+        new Vue({
+            el: '#demo',
+            // M
+            data: {
+                isColor: 'blue',
+                color: ['red', 'blue'],
+                name: 'yao',
+                url: "https://ss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=3533778697,2586993014&fm=74&app=80&f=PNG&size=f121,121?sec=1880279984&t=1dbed90be2871a78074bf731b6872ed0"
+            },
+            // V
+            template: `
+                <div>
+                    <select v-model="isColor">
+                        <option v-for="c in color" :value="c">{{c}}</option>
+                    </select>
+                    <img :name="name" v-bind:src="url" />
+                    <img :src="url" />
+                    <p :class="{blue:isColor==='blue',red:isColor==='red'}">类指令</p>
+                </div>
+            `
+        })
+    </script>
+</body>
+
+</html>
